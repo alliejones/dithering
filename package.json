@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --colors --production",
-    "watch": "webpack-dev-server --progress --colors --inline --hot",
+    "serve": "webpack-dev-server --progress --colors --inline --hot",
+    "test": "mocha-webpack --webpack-config webpack.config-test.js \"tests/**/*.js\"",
     "pages:update": "git subtree push --prefix build origin gh-pages"
   },
   "author": "Allie Jones <allie@alliejon.es>",
@@ -23,7 +24,13 @@
     "eslint-plugin-jsx-a11y": "^1.2.2",
     "eslint-plugin-react": "^5.1.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack": "^1.7.0",
     "minimist": "*",
+    "phantomjs": "^2.1.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
@@ -33,7 +40,8 @@
     "extends": "airbnb",
     "env": {
       "es6": true,
-      "node": true
+      "node": true,
+      "jasmine": true
     },
     "parserOptions": {
       "ecmaFeatures": {

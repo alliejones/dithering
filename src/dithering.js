@@ -1,17 +1,9 @@
+import { generateDitherPatterns } from './utils';
+import Pixel from './Pixel';
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-
-class Pixel {
-  constructor(values) {
-    this.values = values;
-  }
-
-  brightness() {
-    // TODO: use a better conversion
-    return Math.max(this.values[0], this.values[1], this.values[2]);
-  }
-}
 
 const ditherMatrix = [
   [6, 8, 4],
@@ -19,19 +11,8 @@ const ditherMatrix = [
   [5, 2, 7],
 ];
 
-const ditherPatterns = (function (matrix) {
-  const intensityLevels = matrix.length * matrix.length;
-  const patterns = [];
-  for (let i = 0; i < intensityLevels; i++) {
-    patterns.push(ditherMatrix.map(row => {
-      return row.map(v => {
-        if (v > i) return new Pixel([255, 255, 255, 255]);
-        return new Pixel([0, 0, 0, 255]);
-      });
-    }));
-  }
-  return patterns;
-}(ditherMatrix));
+const ditherPatterns = generateDitherPatterns(ditherMatrix);
+console.log(ditherPatterns);
 
 class DImage {
   width = null
