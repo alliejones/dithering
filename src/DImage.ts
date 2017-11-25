@@ -9,6 +9,8 @@ export default class DImage {
 
       const image = new Image();
       image.onload = () => {
+        canvas.width = image.width;
+        canvas.height = image.height;
         ctx.drawImage(image, 0, 0);
 
         const data = createPixelArrayFromImageData(
@@ -33,8 +35,8 @@ export default class DImage {
 
   constructor(data: Pixel[][]) {
     this.data = data;
-    this.width = data.length;
-    this.height = data[0].length;
+    this.width = data[0].length;
+    this.height = data.length;
   }
 
   public getPixel(x: number, y: number) {

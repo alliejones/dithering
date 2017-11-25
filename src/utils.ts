@@ -1,16 +1,33 @@
 import Pixel from './Pixel';
 
+/*
+ * image[row][column] / image[y][x] (origin top left)
+ * [
+ *  [(0,0), (0,1), (0,2)],
+ *  [(1,0), (1,1), (1,2)],
+ *  [(2,0), (2,1), (2, 2)]
+ * ]
+ */
+
 function createPixelArrayFromImageData({ height, width, data }: ImageData) {
-  const array = [];
   const valuesPerPixel = 4;
-  for (let x = 0; x < width * valuesPerPixel; x += valuesPerPixel) {
-    const offset = x * width;
-    const col = [];
-    for (let y = 0; y < height * valuesPerPixel; y += valuesPerPixel) {
-      const [r, g, b, a] = data.slice(offset + y, offset + y + valuesPerPixel);
-      col.push(new Pixel(r, g, b, a));
+  const array = [];
+
+  let currentRow = [];
+  let currentValues = [];
+  for (let pos = 0; pos < data.length; pos++) {
+    currentValues.push(data[pos]);
+
+    if (currentValues.length === 4) {
+      const [r, g, b, a] = currentValues;
+      currentRow.push(new Pixel(r, g, b, a));
+      currentValues = [];
     }
-    array.push(col);
+
+    if (currentRow.length === width) {
+      array.push(currentRow);
+      currentRow = [];
+    }
   }
   return array;
 }

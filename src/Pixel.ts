@@ -21,7 +21,7 @@ export default class Pixel {
   }
 
   get values(): number[] {
-    return [ this.r, this.b, this.g, this.a ];
+    return [ this.r, this.g, this.b, this.a ];
   }
 
   public eq(pixel: Pixel) {

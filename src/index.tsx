@@ -27,7 +27,7 @@ function dither(image: DImage, matrix: DitherMatrix) {
 
   canvas.width = image.width;
   canvas.height = image.height;
-  ctx.putImageData(new ImageData(ditheredImage.toUint8ClampedArray(), 168, 224), 0, 0);
+  return new ImageData(ditheredImage.toUint8ClampedArray(), image.width, image.height);
 }
 
 function average(imageData: Pixel[][]) {
@@ -48,7 +48,9 @@ async function render() {
   ]);
 
   const image = await DImage.createFromURL('abe-grayscale.jpg');
-  dither(image, ditherMatrix);
+  canvas.width = image.width;
+  canvas.height = image.height;
+  ctx.putImageData(new ImageData(image.toUint8ClampedArray(), image.width, image.height), 0, 0);
 }
 
 render();
